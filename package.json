@@ -1,0 +1,20 @@
+{
+  "name": "watchout",
+  "version": "1.0.1",
+  "description": "Asteroids-style game implemented using D3.js",
+  "main": "client/index.html",
+  "scripts": {
+    "test": "echo 'Error: no test specified'",
+    "start": "open client/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hackreactor-labs/sprint.watchout.git"
+  },
+  "author": "Hack Reactor",
+  "license": "Copyright 2014, Hack Reactor. All rights reserved.",
+  "bugs": {
+    "url": "https://github.com/hackreactor-labs/sprint.watchout/issues"
+  },
+  "homepage": "https://github.com/hackreactor-labs/sprint.watchout"
+}
