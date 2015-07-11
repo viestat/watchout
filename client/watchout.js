@@ -12,7 +12,7 @@ $(document).ready(function(){
 
 
   var init = function() {
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 25; i++) {
       newEnemy = new Enemy(0, 0, r);
       enemies.push(newEnemy);
     }
@@ -74,6 +74,8 @@ $(document).ready(function(){
     .attr('y', function(d) { return d.y; });
   };
 
+  var previousCollision = false;
+
   var checkCollision = function(){
     var user = d3.select('#user');
     // here only the first item of the D3 array is the actual array of selected elements
@@ -84,18 +86,27 @@ $(document).ready(function(){
     var enemyX;
     var enemyY;
     var dist;
+
+    var collision = false;
+
     for (var i = 0; i < enemies.length; i++) {
       // here we need to wrap it again with D3 methods, such as attr
       enemy = d3.select(enemies[i]);
       enemyX = parseFloat(enemy.attr('x'));
       enemyY = parseFloat(enemy.attr('y')); //parseFloat
       dist = Math.pow((enemyX - userX), 2) + Math.pow((enemyY - userY), 2);
-      if(dist < 35*35) {
-        drawBlood(userX, userY);
-        onCollision();
+      if(dist < 35*35) { 
+        collision = true;
       }
-
     }
+
+    if(collision !== previousCollision) {
+      onCollision();
+      drawBlood(userX, userY);
+    }
+
+    previousCollision = collision;
+
   };
 
   var checkHighScore = function (curr) {
@@ -112,7 +123,7 @@ $(document).ready(function(){
     .style('background-color', 'rgba(200, 100, 100, 0.6)')
     .style('background-image', 'url("img/skull.png")')
     .transition()
-    .duration(100)
+    .duration(50)
     .style('background-image', 'none')
     .style('background-color', 'rgba(100, 100, 100, 0.9)');
   };
@@ -127,8 +138,8 @@ $(document).ready(function(){
 
   var drag = d3.behavior.drag()
     .on('drag', function() {
-       c.attr('x', d3.event.x < maxX - 25 ? ( d3.event.x > 25 ? d3.event.x - 25 : 0) : maxX - 50)
-        .attr('y', d3.event.y < maxY - 30 ? ( d3.event.y > 30 ? d3.event.y - 30 : 0) : maxY - 60); 
+       c.attr('x', d3.event.x < maxX - 35 ? ( d3.event.x > 35 ? d3.event.x - 35 : 0) : maxX - 70)
+        .attr('y', d3.event.y < maxY - 35 ? ( d3.event.y > 35 ? d3.event.y - 35 : 0) : maxY - 70); 
     });
 
   var Enemy = function (x,y,r) {
@@ -144,8 +155,6 @@ $(document).ready(function(){
 
   var c = d3.select('#user').call(drag);
   
-
-
   setInterval(function(){
     relocate(enemies);
     update(enemies);
@@ -156,9 +165,8 @@ $(document).ready(function(){
     d3.select('.current').text('Current Score: ' + currentScore.toString());
   }, 100);
 
-  setInterval(function(){
-    checkCollision();
-  }, 100);
+  d3.timer(checkCollision)
+
   // .update(enemies);
 
 });
