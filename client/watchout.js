@@ -90,7 +90,7 @@ $(document).ready(function(){
       enemyX = parseFloat(enemy.attr('x'));
       enemyY = parseFloat(enemy.attr('y')); //parseFloat
       dist = Math.pow((enemyX - userX), 2) + Math.pow((enemyY - userY), 2);
-      if(dist < 30*30) {
+      if(dist < 35*35) {
         drawBlood(userX, userY);
         onCollision();
       }
@@ -105,11 +105,24 @@ $(document).ready(function(){
     }
   }
 
+  var flashScreen = function(){
+    d3.select('.backdrop')
+    .transition()
+    .duration(50)
+    .style('background-color', 'rgba(200, 100, 100, 0.6)')
+    .style('background-image', 'url("img/skull.png")')
+    .transition()
+    .duration(100)
+    .style('background-image', 'none')
+    .style('background-color', 'rgba(100, 100, 100, 0.9)');
+  };
+
   var onCollision = function(){
     collisionCount++;
     d3.select('.collisions').text('Spilled Blood: ' + collisionCount.toString());
     checkHighScore(currentScore);
     currentScore = 0;
+    flashScreen();
   }
 
   var drag = d3.behavior.drag()
