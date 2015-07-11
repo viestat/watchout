@@ -15,6 +15,17 @@ $(document).ready(function(){
     }
   };
 
+  var drawUser = function () {
+    var user = d3.select('.arena')
+    .append('image')
+    .attr('id', 'user')
+    .attr('xlink:href', 'img/man.gif')
+    .attr('width', '50')
+    .attr('height', '50')
+    .attr('x', '400')
+    .attr('y', '300');
+  };
+
   var relocate = function(array){
     for (var i = 0; i < array.length; i++) {
       array[i].x = Math.random() * (maxX - 2 * r) + r;
@@ -41,15 +52,13 @@ $(document).ready(function(){
     .attr('cy', function(d) { return d.y; });
   };
 
-  var drag = d3.behavior.drag()
-   .on('drag', function() { 
-     c
-     .attr('cx', d3.event.x)
-     .attr('cy', d3.event.y); 
-   });
 
-  var c = d3.select('#user').call(drag);
- 
+
+  var drag = d3.behavior.drag()
+    .on('drag', function() { 
+       c.attr('x', d3.event.x - 25)
+        .attr('y', d3.event.y - 30); 
+    });
 
   var Enemy = function (x,y,r) {
     this.x = x;
@@ -58,8 +67,13 @@ $(document).ready(function(){
   };
 
   init();
+  drawUser();
   relocate(enemies);
   draw(enemies);
+
+  var c = d3.select('#user').call(drag);
+  
+
 
   setInterval(function(){
     relocate(enemies);

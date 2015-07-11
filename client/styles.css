@@ -5,16 +5,35 @@ Feel free to use it if you like. */
 
 body {
   background-color: gray;
+  background-image: url('img/bg.jpg');
 }
 
 .backdrop {
   margin: 0 auto;
   width: 800px;
   height: 600px;
-  background-color: #aaa;
+  background-color: rgba(100, 100, 100, 0.9);
+  border-radius: 5px;
 }
 
 .enemy {
   width: 512px;
   height: 512px;
+}
+
+.scoreboard {
+  font-family: Arial;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  width: 780px;
+  padding: 5px 5px 5px 15px;
+}
+
+.high, .current, .collisions {
+
 }
