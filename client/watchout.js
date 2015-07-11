@@ -12,7 +12,7 @@ $(document).ready(function(){
 
 
   var init = function() {
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 50; i++) {
       newEnemy = new Enemy(0, 0, r);
       enemies.push(newEnemy);
     }
@@ -54,12 +54,15 @@ $(document).ready(function(){
   var draw = function(data) {
     var dots = d3.select('.arena').selectAll('circle').data(data);
     dots.enter()
-    .append('circle')
-    .attr('cx', function(d) { return d.x; })
-    .attr('cy', function(d) { return d.y; })
-    .attr('r', function(d) { return d.r; })
+    .append('image')
+    .attr('x', function(d) { return d.x; })
+    .attr('y', function(d) { return d.y; })
+    // .attr('r', function(d) { return d.r; })
     .attr('class', 'enemy')
-    .attr('fill', "url(#image)");
+    .attr('xlink:href', 'img/shuriken.gif')
+    .attr('width', 40)
+    .attr('height', 40);
+    // .attr('fill', "url(#image)")
   }
 
   var update = function(data) {
@@ -67,8 +70,8 @@ $(document).ready(function(){
     dots
     .transition()
     .duration(1500)
-    .attr('cx', function(d) { return d.x; })
-    .attr('cy', function(d) { return d.y; });
+    .attr('x', function(d) { return d.x; })
+    .attr('y', function(d) { return d.y; });
   };
 
   var checkCollision = function(){
@@ -84,8 +87,8 @@ $(document).ready(function(){
     for (var i = 0; i < enemies.length; i++) {
       // here we need to wrap it again with D3 methods, such as attr
       enemy = d3.select(enemies[i]);
-      enemyX = parseFloat(enemy.attr('cx'));
-      enemyY = parseFloat(enemy.attr('cy')); //parseFloat
+      enemyX = parseFloat(enemy.attr('x'));
+      enemyY = parseFloat(enemy.attr('y')); //parseFloat
       dist = Math.pow((enemyX - userX), 2) + Math.pow((enemyY - userY), 2);
       if(dist < 40*40) {
         drawBlood(userX, userY);
