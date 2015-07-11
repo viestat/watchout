@@ -3,3 +3,18 @@
 /* Note: an asteroid image is included in this repo.
 Feel free to use it if you like. */
 
+body {
+  background-color: gray;
+}
+
+.backdrop {
+  margin: 0 auto;
+  width: 800px;
+  height: 600px;
+  background-color: #aaa;
+}
+
+.enemy {
+  width: 512px;
+  height: 512px;
+}

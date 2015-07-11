@@ -10,6 +10,33 @@
       <div class="current">Current score: <span>0</span></div>
       <div class="collisions">Collisions: <span>0</span></div>
     </div>
+
+    <div class="backdrop">
+      <svg class="arena" xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+        <defs>
+          <pattern id="image" height="40" width="40">
+            <image x="0" y="0" height="40" width="40" xlink:href="img/shuriken.gif"></image>
+          </pattern>
+        </defs>
+        <circle cx="100" cy="100" r="10" id="user">
+          
+        </circle>
+<!-- 
+        <circle cx="100" cy="100" r="20" fill="url(#image)">
+        <animateTransform attributeType="xml"
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 100 100"
+                    to="360 100 100"
+                    dur=".5s"
+                    repeatCount="indefinite"/>
+        </circle> -->
+
+        <!--  svg stuff here  -->
+      </svg>
+    </div>
+
+    <script src='lib/jquery.js'></script>
     <script src="lib/d3.js" charset="utf-8"></script>
     <script src='watchout.js'></script>
   </body>
