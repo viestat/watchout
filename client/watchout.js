@@ -12,7 +12,7 @@ $(document).ready(function(){
 
 
   var init = function() {
-    for (var i = 0; i < 50; i++) {
+    for (var i = 0; i < 20; i++) {
       newEnemy = new Enemy(0, 0, r);
       enemies.push(newEnemy);
     }
@@ -22,9 +22,9 @@ $(document).ready(function(){
     var user = d3.select('.arena')
     .append('image')
     .attr('id', 'user')
-    .attr('xlink:href', 'img/man.gif')
-    .attr('width', '50')
-    .attr('height', '50')
+    .attr('xlink:href', 'img/girl.gif')
+    .attr('width', 70)
+    .attr('height', 70)
     .attr('x', '390')
     .attr('y', '280');
   };
@@ -90,7 +90,7 @@ $(document).ready(function(){
       enemyX = parseFloat(enemy.attr('x'));
       enemyY = parseFloat(enemy.attr('y')); //parseFloat
       dist = Math.pow((enemyX - userX), 2) + Math.pow((enemyY - userY), 2);
-      if(dist < 40*40) {
+      if(dist < 30*30) {
         drawBlood(userX, userY);
         onCollision();
       }
@@ -107,7 +107,7 @@ $(document).ready(function(){
 
   var onCollision = function(){
     collisionCount++;
-    d3.select('.collisions').text('Collisions: ' + collisionCount.toString());
+    d3.select('.collisions').text('Spilled Blood: ' + collisionCount.toString());
     checkHighScore(currentScore);
     currentScore = 0;
   }
