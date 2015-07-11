@@ -6,6 +6,9 @@ $(document).ready(function(){
   var y;
   var r = 20;
   var newEnemy;
+  var collisionCount = 0;
+  var currentScore = 0;
+  var highScore = 0;
 
 
   var init = function() {
@@ -55,6 +58,7 @@ $(document).ready(function(){
 
   var checkCollision = function(){
     var user = d3.select('#user');
+    // here only the first item of the D3 array is the actual array of selected elements
     var enemies = d3.selectAll('.enemy')[0];
     var enemy;
     var userX = parseFloat(user.attr('x'));
@@ -63,6 +67,7 @@ $(document).ready(function(){
     var enemyY;
     var dist;
     for (var i = 0; i < enemies.length; i++) {
+      // here we need to wrap it again with D3 methods, such as attr
       enemy = d3.select(enemies[i]);
       enemyX = parseFloat(enemy.attr('cx'));
       enemyY = parseFloat(enemy.attr('cy')); //parseFloat
@@ -74,8 +79,19 @@ $(document).ready(function(){
     }
   };
 
+  var checkHighScore = function (curr) {
+    if (curr > highScore) {
+      highScore = currentScore;
+      d3.select('.high').text('High Score: ' + highScore.toString());
+    }
+  }
+
   var onCollision = function(){
     console.log('OUCH!!!!!');
+    collisionCount++;
+    d3.select('.collisions').text('Collisions: ' + collisionCount.toString());
+    checkHighScore(currentScore);
+    currentScore = 0;
   }
 
   var drag = d3.behavior.drag()
@@ -105,8 +121,13 @@ $(document).ready(function(){
   }, 1500);
 
   setInterval(function(){
+    currentScore++;
+    d3.select('.current').text('Current Score: ' + currentScore.toString());
+  }, 100);
+
+  setInterval(function(){
     checkCollision();
-  }, 50);
+  }, 100);
   // .update(enemies);
 
 });
