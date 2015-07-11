@@ -46,13 +46,37 @@ $(document).ready(function(){
 
   var update = function(data) {
     var dots = d3.select('.arena').selectAll('.enemy').data(data);
-    dots.transition()
+    dots
+    .transition()
     .duration(1500)
     .attr('cx', function(d) { return d.x; })
     .attr('cy', function(d) { return d.y; });
   };
 
+  var checkCollision = function(){
+    var user = d3.select('#user');
+    var enemies = d3.selectAll('.enemy')[0];
+    var enemy;
+    var userX = parseFloat(user.attr('x'));
+    var userY = parseFloat(user.attr('y'));
+    var enemyX;
+    var enemyY;
+    var dist;
+    for (var i = 0; i < enemies.length; i++) {
+      enemy = d3.select(enemies[i]);
+      enemyX = parseFloat(enemy.attr('cx'));
+      enemyY = parseFloat(enemy.attr('cy')); //parseFloat
+      dist = Math.pow((enemyX - userX), 2) + Math.pow((enemyY - userY), 2);
+      if(dist < 40*40) {
+        onCollision();
+      }
 
+    }
+  };
+
+  var onCollision = function(){
+    console.log('OUCH!!!!!');
+  }
 
   var drag = d3.behavior.drag()
     .on('drag', function() { 
@@ -79,6 +103,10 @@ $(document).ready(function(){
     relocate(enemies);
     update(enemies);
   }, 1500);
+
+  setInterval(function(){
+    checkCollision();
+  }, 50);
   // .update(enemies);
 
 });
