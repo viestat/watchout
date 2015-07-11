@@ -25,8 +25,8 @@ $(document).ready(function(){
     .attr('xlink:href', 'img/man.gif')
     .attr('width', '50')
     .attr('height', '50')
-    .attr('x', '400')
-    .attr('y', '300');
+    .attr('x', '390')
+    .attr('y', '280');
   };
 
   var relocate = function(array){
@@ -87,7 +87,6 @@ $(document).ready(function(){
   }
 
   var onCollision = function(){
-    console.log('OUCH!!!!!');
     collisionCount++;
     d3.select('.collisions').text('Collisions: ' + collisionCount.toString());
     checkHighScore(currentScore);
@@ -95,9 +94,9 @@ $(document).ready(function(){
   }
 
   var drag = d3.behavior.drag()
-    .on('drag', function() { 
-       c.attr('x', d3.event.x - 25)
-        .attr('y', d3.event.y - 30); 
+    .on('drag', function() {
+       c.attr('x', d3.event.x < maxX - 25 ? ( d3.event.x > 25 ? d3.event.x - 25 : 0) : maxX - 50)
+        .attr('y', d3.event.y < maxY - 30 ? ( d3.event.y > 30 ? d3.event.y - 30 : 0) : maxY - 60); 
     });
 
   var Enemy = function (x,y,r) {
