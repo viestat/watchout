@@ -29,6 +29,21 @@ $(document).ready(function(){
     .attr('y', '280');
   };
 
+  var drawBlood = function (x, y) {
+    var blood = d3.select('.arena')
+    .insert('image', '#user')
+    .attr('class', 'blood')
+    .attr('xlink:href', 'img/blood.png')
+    .attr('width', 40 + Math.random() * 20)
+    .attr('height', 40 + Math.random() * 20)
+    .attr('x', x + 30 * (Math.random() - 0.5))
+    .attr('y', y + 30 * (Math.random() - 0.5))
+    .attr('opacity', 0)
+    .transition()
+    .duration(200)
+    .attr('opacity', 1);
+  };
+
   var relocate = function(array){
     for (var i = 0; i < array.length; i++) {
       array[i].x = Math.random() * (maxX - 2 * r) + r;
@@ -73,6 +88,7 @@ $(document).ready(function(){
       enemyY = parseFloat(enemy.attr('cy')); //parseFloat
       dist = Math.pow((enemyX - userX), 2) + Math.pow((enemyY - userY), 2);
       if(dist < 40*40) {
+        drawBlood(userX, userY);
         onCollision();
       }
 
